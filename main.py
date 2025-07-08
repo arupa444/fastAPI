@@ -10,7 +10,7 @@ def fetchData():
 
 
 @app.get("/")
-def hello():
+def home():
     return {"message":"Patient management system api"}
 
 @app.get("/about")
@@ -35,11 +35,14 @@ def sortedData(sortBy: str= Query(..., description="The field that you want to s
 
     if sortBy not in vaild_fields:
         raise HTTPException(status_code=400, detail=f"Invalid feild select from {vaild_fields}")
+    
     if order not in ["asc", "desc"]:
         raise HTTPException(status_code=400, detail="Enter a valid input either asc or desc")
+    
     data = fetchData()
 
-    sorted(data.values(), key=lambda x: x[sortBy], reverse=True)
+    sort_order = True if order == 'desc' else False
 
-    
-    
+    sorted_data = sorted(data.values(), key=lambda x: x[sortBy], reverse=sort_order)
+
+    return sorted_data
