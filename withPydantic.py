@@ -1,5 +1,5 @@
-from pydantic import BaseModel, EmailStr, AnyUrl
-from typing import List, Dict, Optional
+from pydantic import BaseModel, EmailStr, AnyUrl, Field
+from typing import List, Dict, Optional, Annotated
 from datetime import datetime
 import time
 
@@ -7,9 +7,9 @@ class PydenticVal(BaseModel):
     name: str
     email: EmailStr
     githubURL: Optional[AnyUrl] = None
-    age: Optional[int] = None
+    age: Annotated[Optional[int], Field(default=None, gt=0, lt=40, title="Age of the Patient", description="Enter the age and the age must be inbetween 0-40")]
     drinkingWater: bool
-    height: float
+    height: Annotated[float,Field(gt=0, strict=True)]
     disease: List[str]
     pets: Optional[Dict[str,str]] = None
     updateTime: Optional[datetime] = None
@@ -24,7 +24,7 @@ def readTheDB(patient):
     print(patient.pets)
     print(patient.email)
     print(patient.viewTime)
-    print("viewed....")
+    print("viewed....\n\n\n")
 
 def updateTheDB(patient):
     print(patient.age)
@@ -36,7 +36,8 @@ def updateTheDB(patient):
 
 store = {
     "name":"Arupa",
-    "height": "5.10",
+    "height": 5.10,
+    "age": "21",
     "drinkingWater":True,
     "disease": ["Ashatma", "cancer"],
     "pets": {
