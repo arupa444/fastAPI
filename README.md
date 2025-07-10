@@ -116,13 +116,14 @@ GET /sort?sortBy=bmi&order=asc
   "feeling": "Better",
   "weight": 68.5
 }
+```
 
 **Success Response:**
 ```json
 {
   "Message": "The data is updated"
 }
-
+```
 ### ❌ Delete Patient
 
 | Method | Endpoint           | Description            |
