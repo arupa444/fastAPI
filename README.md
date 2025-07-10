@@ -169,12 +169,19 @@ Each patient entry includes the following fields:
 ```
 ## 📁 Project Structure
 FASTAPI-PMS/
+
 ├── main.py # Main FastAPI application with all routes
+
 ├── patients.json # JSON file storing patient data
+
 ├── withPydantic.py # Pydantic models (modular version - optional)
+
 ├── withoutPydantic.py # Version of the app without Pydantic (optional)
+
 ├── serialization.py # Optional file for custom serializers (if used)
+
 ├── requirements.txt # Python dependencies
+
 ├── README.md # Project documentation (this file)
 
 
