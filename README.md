@@ -71,4 +71,31 @@ A simple and powerful Patient Management System built with **FastAPI** and **Pyd
 | GET    | `/sort`            | Sort patients by `height`, `weight`, or `bmi`<br>**Query Params:** `sortBy` and `order` |
 
 **Example for sort endpoint:**
+GET /sort?sortBy=bmi&order=asc
+
+
+---
+
+### ➕ Add Patient
+
+| Method | Endpoint    | Description                 |
+|--------|-------------|-----------------------------|
+| POST   | `/create`   | Add a new patient to system |
+
+**Request Body Example:**
+```json
+{
+  "id": "P003",
+  "name": "Alice",
+  "city": "Delhi",
+  "age": 24,
+  "gender": "Female",
+  "height": 1.68,
+  "weight": 65,
+  "feeling": "Good",
+  "disease": {
+    "name": "Asthma",
+    "description": "Chronic breathing issue"
+  }
+}
 
