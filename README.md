@@ -99,6 +99,7 @@ GET /sort?sortBy=bmi&order=asc
     "description": "Chronic breathing issue"
   }
 }
+```
 ### 🔁 Update Patient
 
 | Method | Endpoint           | Description                        |
