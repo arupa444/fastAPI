@@ -87,7 +87,7 @@ def home():
 
 @app.get("/about")
 def aboutMe():
-    return {"message":"Here we gonna update the patients info in doctors dashboard."}
+    return {"message":"Patient management system api which gonna help you in managing your web apps....\nuse them and give stars if you likes it..."}
 
 @app.get("/view")
 def viewTheData():
