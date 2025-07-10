@@ -165,6 +165,6 @@ def deletePatient(patient_id):
     
     del data[patient_id]
 
-    saveData(data)
+    saveData(data) # save data
 
     return JSONResponse(status_code=200, content={"message":f"Perfectly deleted the {patient_id}"})
