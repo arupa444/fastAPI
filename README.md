@@ -201,8 +201,8 @@ Let’s improve this API together!
 
 Building clean, efficient, and developer-friendly tools.
 
-- GitHub: [@arupanandaswain](https://github.com/arupanandaswain)
-- LinkedIn: [linkedin.com/in/arupanandaswain](https://linkedin.com/in/arupanandaswain)
+- GitHub: [@arupa444](https://github.com/arupa444)
+- LinkedIn: [linkedin.com/in/arupa-nanda-swain](https://www.linkedin.com/in/arupa-nanda-swain)
 
 ---
 
