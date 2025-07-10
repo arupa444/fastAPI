@@ -99,4 +99,47 @@ GET /sort?sortBy=bmi&order=asc
     "description": "Chronic breathing issue"
   }
 }
+### 🔁 Update Patient
 
+| Method | Endpoint           | Description                        |
+|--------|--------------------|------------------------------------|
+| PUT    | `/update/{p_id}`   | Update an existing patient by ID   |
+
+**Path Parameter:**
+
+- `p_id` (string): ID of the patient you want to update.
+
+**Request Body (Partial Update Allowed):**
+```json
+{
+  "city": "Bhubaneswar",
+  "feeling": "Better",
+  "weight": 68.5
+}
+
+**Success Response:**
+```json
+{
+  "Message": "The data is updated"
+}
+
+### ❌ Delete Patient
+
+| Method | Endpoint           | Description            |
+|--------|--------------------|------------------------|
+| DELETE | `/delete/{p_id}`   | Delete patient by ID   |
+
+**Path Parameter:**
+
+- `p_id` (string): The unique ID of the patient you want to delete.
+
+**Example Request:**
+DELETE /delete/P002
+
+
+**Success Response:**
+```json
+{
+  "message": "Perfectly deleted the P002"
+}
+```
