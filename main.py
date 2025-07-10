@@ -2,7 +2,7 @@ from fastapi import FastAPI, Path, HTTPException, Query
 from fastapi.responses import JSONResponse
 import json
 from pydantic import BaseModel, Field, field_validator, computed_field
-from typing import Annotated, Literal
+from typing import Annotated, Literal, Optional
 
 app = FastAPI()
 
@@ -21,7 +21,7 @@ class Patient(BaseModel):
     gender : Annotated[str, Field(..., title="The gender of the patient...", description="Enter the patients Gender...")]
     height : Annotated[float, Field(..., gt=0,title="The height of the patient", description="Enter the patient height..")]
     weight : Annotated[float, Field(..., gt=0,title="The Weight of the patient", description="Enter the patient weight...")]
-    disease : Disease
+    disease : Annotated[Disease, Field(title="The disease details", description="Enter the disease details...")]
 
     @computed_field
     @property
@@ -44,11 +44,18 @@ class Patient(BaseModel):
     def validateGender(cls, value):
         store = ["Male", "Female"]
         if value not in store:
-            raise "Enter the correct gender[Male or Female]"
+            raise ValueError("Enter the correct gender[Male or Female]")
         return value
 
-
-
+class UpdatePatient(BaseModel):
+    name : Annotated[Optional[str], Field(default=None, title="Name of the patient", description="Enter the patient name")]
+    city : Annotated[Optional[str], Field(default=None, title="place he/she lives", description="Enter the place the patient lives....")]
+    age : Annotated[Optional[int], Field(default=None, gt=0, lt=111, title="The age of the patient", description="Enter the patient's age...")]
+    feeling : Annotated[Optional[Literal["Worst","Normal","Good","Better","Best"]], Field(default=None, title="The patient state of emotion" ,description="Enter the way you feeling rn...")]
+    gender : Annotated[Optional[str], Field(default=None, title="The gender of the patient...", description="Enter the patients Gender...")]
+    height : Annotated[Optional[float], Field(default=None, gt=0,title="The height of the patient", description="Enter the patient height..")]
+    weight : Annotated[Optional[float], Field(default=None, gt=0,title="The Weight of the patient", description="Enter the patient weight...")]
+    disease : Annotated[Optional[Disease], Field(default=None, title="The disease details", description="Enter the disease details...")]
 
 
 
@@ -71,7 +78,7 @@ def fetchData():
     
 def saveData(data):
     with open('patients.json','w') as file:
-        json.dump(data,file)
+        json.dump(data, file)
 
 
 @app.get("/")
@@ -85,6 +92,7 @@ def aboutMe():
 @app.get("/view")
 def viewTheData():
     data = fetchData()
+    print(data["P002"]["gender"])
     return data
 
 @app.get("/patient/{p_id}")
@@ -112,13 +120,51 @@ def sortedData(sortBy: str= Query(..., description="The field that you want to s
 
     return sorted_data
 
-app.post("/create")
+@app.post("/create")
 def addPatient(patient: Patient):
     data = fetchData()
 
     if patient.id in data:
-        raise HTTPException(status_code="400", detail="The patient is already exists")
+        raise HTTPException(status_code=400, detail="The patient is already exists")
     data[patient.id] = patient.model_dump(exclude=["id"])
 
     saveData(data)
     return JSONResponse(status_code=201, content={"message": "Patient is successfully added"})
+
+
+@app.put("/update/{patient_id}")
+def updatePatient(patient_id: str, patient : UpdatePatient):
+    data = fetchData()
+
+    if patient_id not in data:
+        raise HTTPException(status_code=404, detail="Patient not found")
+    
+    tempStoreUpdatedDataOfPatient = patient.model_dump(exclude_defaults=True)
+
+    thatPatientData = data[patient_id]
+    thatPatientData["id"] = patient_id
+
+    for key, value in tempStoreUpdatedDataOfPatient.items():
+        thatPatientData[key] = value
+    
+    objectForPatient = Patient(**thatPatientData)
+
+    tempStoreAllDataForUpdate = objectForPatient.model_dump(exclude=["id"])
+    data[patient_id] = tempStoreAllDataForUpdate
+    
+
+    saveData(data)
+    return JSONResponse(status_code=200, content={"Message":"The data is updated"})
+
+
+@app.delete("/delete/{patient_id}")
+def deletePatient(patient_id):
+    data = fetchData()
+    if patient_id not in data:
+        raise HTTPException(status_code=404, detail="Patient Not Found")
+    
+    del data[patient_id]
+
+    saveData(data)
+
+    return JSONResponse(status_code=200, content={"message":f"Perfectly deleted the {patient_id}"})
