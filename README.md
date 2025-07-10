@@ -145,3 +145,68 @@ DELETE /delete/P002
   "message": "Perfectly deleted the P002"
 }
 ```
+## 📊 Patient Model
+
+Each patient entry includes the following fields:
+
+```json
+{
+  "id": "P001",
+  "name": "John Doe",
+  "city": "New York",
+  "age": 35,
+  "gender": "Male",
+  "height": 1.75,
+  "weight": 70,
+  "feeling": "Good",
+  "disease": {
+    "name": "Diabetes",
+    "description": "Type 2 diabetes"
+  },
+  "bmi": 22.86,
+  "verdict": "Normal"
+}
+```
+## 📁 Project Structure
+FASTAPI-PMS/
+├── main.py # Main FastAPI application with all routes
+├── patients.json # JSON file storing patient data
+├── withPydantic.py # Pydantic models (modular version - optional)
+├── withoutPydantic.py # Version of the app without Pydantic (optional)
+├── serialization.py # Optional file for custom serializers (if used)
+├── requirements.txt # Python dependencies
+├── README.md # Project documentation (this file)
+
+
+> You can remove or restructure optional files like `withPydantic.py` and `serialization.py` if not used in your deployment.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to:
+
+- ⭐ Star the repository
+- 🍴 Fork it
+- 🐛 Report issues
+- 🔧 Submit pull requests
+
+Let’s improve this API together!
+
+---
+
+## 🧑 Author
+
+**Arupa Nanda Swain**
+
+Building clean, efficient, and developer-friendly tools.
+
+- GitHub: [@arupanandaswain](https://github.com/arupanandaswain)
+- LinkedIn: [linkedin.com/in/arupanandaswain](https://linkedin.com/in/arupanandaswain)
+
+---
+
+## 📜 License
+
+You are free to use, modify, and distribute this software with proper attribution.
+
